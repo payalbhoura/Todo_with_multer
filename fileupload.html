@@ -6,15 +6,27 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="photo">
-        <button type="submit" id="upload">upload</button>  </form>
+   <input type="file" name="photo" id="image">
+   <button id="upload">Upload</button>
+   <img src="" alt="Image from server" id="serverImage">
 </body>
 <script>
     const upload=document.getElementById("upload")
-    upload.addEventListener("submit",(e)=>{
-        e.preventDefault();
-        return false;
+    const getImage = document.getElementById("image")
+    const setImage = document.getElementById("serverImage")
+    upload.addEventListener("click",(e)=>{
+        const formData = new FormData()
+        formData.append("photo",getImage.files[0])
+        fetch("http://localhost:3000/upload",{
+            method:"post",
+            body:formData
+        }).then((result)=>{
+            console.log(result);
+            return result.json();
+        }).then((image)=>{
+            console.log(image);
+            setImage.src="/"+image.image
+        })
     })
 </script>
 </html>

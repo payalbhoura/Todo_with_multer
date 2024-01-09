@@ -6,7 +6,7 @@ const port = 3000
 const path = require('path')
 const fs = require('fs')//file system
 
-
+server.use(express.static("upload/"))
 server.use(express.urlencoded({ extended: false }));
 //disk kai upr files ko kaise store krna hai fullcontro dega//storage object bnaya
 //destination and filename is a callback function //destination ---kon se folder kai andr humein particular file ko store krna hai//
@@ -29,14 +29,9 @@ server.get("/", (req, res) => {
 
 server.post("/upload", upload.single("photo"), (req, res) => {
     console.log(req.file.filename);
-    // fs.readFile(path.resolve(req.file.filename), (err, data) => {
-    //     if (err) {
-    //         res.send(err)
-    //         return
-    //     }
-    //     res.sendFile(data)
-    // })
-   // res.sendFile(path.resolve("upload/"+req.file.filename))
+    res.json({
+        image:req.file.filename
+    })
 })
 
 
