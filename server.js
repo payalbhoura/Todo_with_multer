@@ -1,44 +1,37 @@
-const express = require('express')
-const { readFile } = require('fs')
-const server = express()
-const multer = require('multer')
-const port = 3000
-const path = require('path')
-const fs = require('fs')//file system
+const express = require("express")
+const multer = require("multer")
+const db=require("./models/db")
+const server = express();
+const port=2000
 
-server.use(express.static("upload/"))
-server.use(express.urlencoded({ extended: false }));
-//disk kai upr files ko kaise store krna hai fullcontro dega//storage object bnaya
-//destination and filename is a callback function //destination ---kon se folder kai andr humein particular file ko store krna hai//
-//req,cb --apna kaaam krne kai baad callback ko call kr do.
+server.use(express.static("public/"))
+server.use(express.urlencoded());
+server.use(express.json());
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        return cb(null, path.resolve("upload/"))
+    destination:function(req,file,cb){
+        return cb(null,"uploads/")
     },
-    filename: function (req, file, cb) {
-        return cb(null, `${Date.now()}`)
-    },
-});
-
-const upload = multer({ storage })//instance cretae
-
-server.get("/", (req, res) => {
-    res.sendFile(path.resolve("fileupload.html"));
-})
-
-
-server.post("/upload", upload.single("photo"), (req, res) => {
-    console.log(req.file.filename);
-    res.json({
-        image:req.file.filename
-    })
-})
-
-
-server.listen(port, (err) => {
-    if (err) {
-        console.log(err);
+    filename:function(req,file,cb){
+        return cb(null,`todo-${Date.now}`)
     }
-    console.log(`server started at ${port} successfully`);
 })
+const upload =multer({storage})//instance //middle ware
+
+const todoRoutes=require('./routes/todoRoutes')//link with the controllers and the routers
+server.use("/",upload.any(),todoRoutes);//use
+
+
+db.connectToDb()//promise return krega//server is started only when server is connected to db
+.then((result) => {
+    server.listen(port ,(err)=>{
+        if(err){
+            console.log(err);
+            return
+        }
+        console.log(`server started at port :${port} successfully `)    
+    })    
+}).catch((err) => {
+    console.log(err);
+})
+
 

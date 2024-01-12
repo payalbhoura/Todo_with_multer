@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .header {
+            height: 10vh;
+            width: 100vw;
+            background-color: aliceblue;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+
+        .inner {
+            width: 80%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+
+        .right {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile {
+            height: 50px;
+            width: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .name {
+            margin: 10px;
+        }
+
+        .right>a {
+            text-decoration: none;
+            color: black;
+            border: 1px solid black;
+            padding: 4px;
+
+        }
+
+        .container {
+            height: 90vh;
+            width: 100vw;
+            background-color: rgb(217, 238, 238);
+            display: flex
+        }
+
+        .left_container,
+        .right_container {
+            width: 50%;
+        }
+
+        .left_bar {
+            background-color: white;
+            height: 50px;
+            box-shadow: 0px 2px 4px grey;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 10px;
+        }
+
+        .todolist {
+            height: 100%;
+            background-color: white;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .todoitem {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin: 2px 5px;
+            box-shadow: 0px 0px 5px grey;
+            border-radius: 15px;
+        }
+
+        .right_container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+
+        }
+
+        .right_list {
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+            height: 150px;
+            background-color: bisque;
+            padding: 20px;
+            justify-content: space-evenly;
+
+        }
+
+        .right_list>input,
+        .right_list>select,
+        .right_list>button {
+            padding: 4px 8px;
+
+        }
+
+        .catform {
+            height: 30px;
+            background-color: white;
+            /* display:flex; */
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+            padding: 0px 10px;
+            display: none;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="inner">
+            <div class="left">
+                <h1>Todo</h1>
+            </div>
+            <div class="right">
+                <div class="profile"></div>
+                <div class="name">Name</div>
+                <a> Logout</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="left_container">
+            <div class="left_bar">
+                <select name="" id="showtodolist">
+                </select>
+                <button id="btn_todolistform"> + </button>
+            </div>
+            <div class="catform" id="catform">
+                <input type="text" name="" id="newtodofolder">
+                <button id="addnewtodofolder">add list</button>
+            </div>
+            <div class="todolist" id="todo_container">
+            </div>
+        </div>
+        <div class="right_container">
+            <div class="right_list">
+                <input type="text" name="fileside" id="task">
+                <select name="" id="selecttodofolder">
+                </select>
+                <button id="addtodofile">ADD TODO</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/todo.js"></script>
+
+</html>
